@@ -1,0 +1,536 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace DBSGroup4
+{
+    public partial class MainPage2 : Form
+    {
+        //declare class variable for item price
+        decimal itemPriceDecimal;
+        decimal totalOrderDecimal; //track total order
+        decimal extraDecimal; //extras cost
+
+        int itemInteger; //track number of items ordered
+
+        int orderInteger; //track no. of orders
+        decimal totalSalesDecimal; //track total sales
+        decimal totalQuantityDecimal; //item x quantity
+
+        //add to cart 
+        string strItemselected; //track item selected
+        string strAddonselected; //track add on selected\
+        int currentOrderQtyInteger; //track the number of item for current order
+        public MainPage2()
+        {
+            InitializeComponent();
+        }
+
+        private void clearForNextItem()
+        {
+            noSizeRadioButton.Checked = true;
+            beltCheckBox.Checked = false;
+            chainCheckBox.Checked = false;
+            slingBagCheckBox.Checked = false;
+            smallRadioButton.Checked = false;
+            mediumRadioButton.Checked = false;
+            largeRadioButton.Checked = false;
+            extraLargeRadioButton.Checked = false;
+            quantityTextBox.Text = "1";
+            promoCodeTextBox.Clear();
+            priceTextBox.Clear();
+            verdantRichTextBox.Clear();
+            pictureBox1.Image = null;
+
+        }
+
+
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+    }
+    private void beigeJoggersRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        string qtyString = quantityTextBox.Text;
+        int qtyInteger = int.Parse(qtyString);
+
+        itemPriceDecimal = 40.0m;
+
+        totalQuantityDecimal = qtyInteger * itemPriceDecimal;
+        totalQuantityDecimal += findExtrasPrice();
+
+        priceTextBox.Text = itemPriceDecimal.ToString("C");
+        totalPriceTextBox.Text = totalQuantityDecimal.ToString("C");
+        // display image for brown joggers
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.BrownPants;
+        //set information for joggers
+        verdantRichTextBox.Text = "Sizes available: S, M & L" +
+        "Comfortable and casual pants" +
+        "Stretchable material";
+
+    }
+
+    private void crewNeckRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        // display price in priceTextBox and totalPriceTextBox.
+        string qtyString = quantityTextBox.Text;
+        int qtyInteger = int.Parse(qtyString);
+        decimal totalPriceDecimal, totalQuantityDecimal;
+
+
+        itemPriceDecimal = 45.0m;
+        totalQuantityDecimal = qtyInteger * itemPriceDecimal;
+        totalPriceDecimal = totalQuantityDecimal + extraDecimal;
+
+        priceTextBox.Text = itemPriceDecimal.ToString("C");
+        totalPriceTextBox.Text = totalPriceDecimal.ToString("C");
+
+        // display image for crew neck radio button
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.LongBlackSleeve;
+        //set information for crew neck
+        verdantRichTextBox.Text = "S | M | L available, " +
+            "High quality sweater made of 100 % cotton," +
+            "Color - blocking design. " +
+            "Smooth feel and elegant sheen ";
+    }
+
+    private void label1_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void crewNeckRadioButton2_CheckedChanged(object sender, EventArgs e)
+    {
+        itemPriceDecimal = 45.0m;
+        priceTextBox.Text = itemPriceDecimal.ToString("C");
+
+        string qtyString = quantityTextBox.Text;
+        int qtyInteger = int.Parse(qtyString);
+
+        totalQuantityDecimal = qtyInteger * itemPriceDecimal;
+
+        totalPriceTextBox.Text = totalQuantityDecimal.ToString("C");
+
+        // display image for crew neck radio button
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.LongBlackSleeve;
+        //set information for crew neck
+        verdantRichTextBox.Text = "S | M | L available, " +
+            "High quality sweater made of 100 % cotton," +
+            "Color - blocking design. " +
+            "Smooth feel and elegant sheen ";
+    }
+
+    private void beigeJoggersRadioButton2_CheckedChanged(object sender, EventArgs e)
+    {
+        itemPriceDecimal = 40.0m;
+        priceTextBox.Text = itemPriceDecimal.ToString("C");
+        string qtyString = quantityTextBox.Text;
+        int qtyInteger = int.Parse(qtyString);
+
+        totalQuantityDecimal = qtyInteger * itemPriceDecimal;
+
+        totalPriceTextBox.Text = totalQuantityDecimal.ToString("C");
+        // display image for brown joggers
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.BrownPants;
+        //set information for joggers
+        verdantRichTextBox.Text = "Sizes available: S, M & L" +
+        "Comfortable and casual pants" +
+        "Stretchable material";
+    }
+
+    private void Oversizedcrewneckradiobutton_CheckedChanged(object sender, EventArgs e)
+    {
+        itemPriceDecimal = 20.0m;
+        priceTextBox.Text = itemPriceDecimal.ToString("C");
+        string qtyString = quantityTextBox.Text;
+        int qtyInteger = int.Parse(qtyString);
+
+        totalQuantityDecimal = qtyInteger * itemPriceDecimal;
+
+        totalPriceTextBox.Text = totalQuantityDecimal.ToString("C");
+        // display image for crew neck tshirt
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.BlackShortSleeve;
+        //set information for joggers
+        verdantRichTextBox.Text = "Size S,M & L" +
+        "High quality shirt made from 100 % cotton" +
+           "Oversized Fit.";
+
+    }
+
+    private void casualCottonRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        itemPriceDecimal = 50.0m;
+        priceTextBox.Text = itemPriceDecimal.ToString("C");
+        string qtyString = quantityTextBox.Text;
+        int qtyInteger = int.Parse(qtyString);
+
+        totalQuantityDecimal = qtyInteger * itemPriceDecimal;
+
+        totalPriceTextBox.Text = totalQuantityDecimal.ToString("C");
+        // display image for Long Sleeve Shirt
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.WhiteLongSleeve;
+        //set information for long sleeve shirt
+        verdantRichTextBox.Text = "Sizes available: S, M & L" +
+        "High quality shirt made from 100 % cotton" +
+        "Comfortable and loose fitting" +
+        "Soft and smooth texture";
+
+
+    }
+
+    private void longSleeveSweaterRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        itemPriceDecimal = 45.0m;
+        priceTextBox.Text = itemPriceDecimal.ToString("C");
+        string qtyString = quantityTextBox.Text;
+        int qtyInteger = int.Parse(qtyString);
+
+        totalQuantityDecimal = qtyInteger * itemPriceDecimal;
+
+        totalPriceTextBox.Text = totalQuantityDecimal.ToString("C");
+        // display image for Long Sleeve Shirt
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.Hoodie;
+        //set information for long sleeve shirt
+        verdantRichTextBox.Text = "Size available S, M & L" +
+        "High quality hoodie" +
+        "76 % Cotton, 24 % Polyester" +
+        "Smooth feel and elegant sheen";
+
+    }
+
+    private void highRiseWideJeansRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        itemPriceDecimal = 55.0m;
+        priceTextBox.Text = itemPriceDecimal.ToString("C");
+        string qtyString = quantityTextBox.Text;
+        int qtyInteger = int.Parse(qtyString);
+
+        totalQuantityDecimal = qtyInteger * itemPriceDecimal;
+
+
+        totalPriceTextBox.Text = totalQuantityDecimal.ToString("C");
+        // display image for Jeans
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.WidePants;
+        //set information for Jeans
+        verdantRichTextBox.Text = "Size available S, M & L" +
+        "Authentic vintage feel, with added stretch for comfort" +
+        "Wide hems for easy movement" +
+        "Stylish high rise jeans";
+
+    }
+
+    private void updateItemPrice(CheckBox extraCheckBox)
+    {
+        if (extraCheckBox.Checked)
+        {
+            extraDecimal += 10.0m;
+        }
+        else
+        {
+            extraDecimal -= 10.0m;
+        }
+
+    }
+
+    private void beltCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        updateItemPrice(beltCheckBox);
+        // display image for belt
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.Belt;
+        //set information for belt
+        verdantRichTextBox.Text = "Adjustable clip for all sizes" +
+        "100 % polyester";
+
+    }
+
+    private void chainCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        updateItemPrice(beltCheckBox);
+        // display image for chain
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.Chain;
+        //set information for chain
+        verdantRichTextBox.Text = "padlock chain" +
+               "40cm long" +
+        "100 % stainless steel";
+
+    }
+
+    private void exitButton_Click(object sender, EventArgs e)
+    {
+        string messageString = "Are you sure you want to exit?";
+        DialogResult userResponseDialogResult;
+
+        userResponseDialogResult = MessageBox.Show(messageString, "Exit",
+            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+        if (userResponseDialogResult == DialogResult.Yes)
+            MessageBox.Show("Thank you for viewing Verdant, we hope to see you again.", "Thank You.");
+
+        { this.Close(); }
+
+    }
+
+    private void oversizedCrewNeckRadioButton2_CheckedChanged(object sender, EventArgs e)
+    {
+        itemPriceDecimal = 20.0m;
+        priceTextBox.Text = itemPriceDecimal.ToString("C");
+
+        string qtyString = quantityTextBox.Text;
+        int qtyInteger = int.Parse(qtyString);
+
+        totalQuantityDecimal = qtyInteger * itemPriceDecimal;
+
+        totalPriceTextBox.Text = totalQuantityDecimal.ToString("C");
+
+        // display image for crew neck tshirt
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.BlackShortSleeve;
+        //set information for joggers
+        verdantRichTextBox.Text = "Size S,M & L" +
+        "High quality shirt made from 100 % cotton" +
+           "Oversized Fit.";
+    }
+
+    private void slingBagCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        updateItemPrice(slingBagCheckBox);
+        // display image for bag
+        pictureBox1.Visible = true;
+        pictureBox1.Image = DBSGroup4.Properties.Resources.Bag;
+        //set information for bag
+        verdantRichTextBox.Text = "25cm length" +
+        "Adjustable strap for the length" +
+        "100 % polyester";
+    }
+
+    private void button2_Click(object sender, EventArgs e)
+    {
+        clearForNextItem();
+    }
+
+    private void addToCartButton_Click(object sender, EventArgs e)
+    {
+
+        //check if any clothing and size is selected 
+        if (noSizeRadioButton.Checked)
+        {
+            MessageBox.Show("Please select an item!", "No item is selected.");
+        }
+        else if (noSizeRadioButton2.Checked)
+        {
+            MessageBox.Show("Please select your item size!", "No Size Selected.");
+        }
+        else
+        {
+            try
+            {
+                string qtyString = quantityTextBox.Text;
+                int qtyInteger = int.Parse(qtyString);
+
+                if (qtyInteger != 0)
+                {
+                    //records the order
+                    itemInteger += qtyInteger;
+                    totalOrderDecimal += itemPriceDecimal * qtyInteger;
+                    //get item selected 
+                    strItemselected = string.Empty;
+                    if (crewNeckRadioButton.Checked)
+                    {
+                        strItemselected = "Crew Neck Long Sleeve Sweater ($45)";
+                    }
+                    else if (beigeJoggersRadioButton.Checked)
+                    {
+                        strItemselected = "Beige Joggers ($40)";
+                    }
+                    else if (Oversizedcrewneckradiobutton.Checked)
+                    {
+                        strItemselected = "Oversized Crew Neck T-Shirt ($20)";
+                    }
+                    else if (crewNeckRadioButton2.Checked)
+                    {
+                        strItemselected = "Crew Neck Long Sleeve Sweater($45)";
+                    }
+                    else if (beigeJoggersRadioButton2.Checked)
+                    {
+                        strItemselected = "Beige Joggers ($40)";
+                    }
+                    else if (oversizedCrewNeckRadioButton2.Checked)
+                    {
+                        strItemselected = "Oversized Crew Neck T-Shirt ($20)";
+                    }
+                    else if (casualCottonRadioButton.Checked)
+                    {
+                        strItemselected = "Casual Cotton Basic White Shirt ($50)";
+                    }
+                    else if (longSleeveSweaterRadioButton.Checked)
+                    {
+                        strItemselected = "Long Sleeve Sweater Hoodie ($45)";
+                    }
+                    else if (highRiseWideJeansRadioButton.Checked)
+                    {
+                        strItemselected = "High Rise Wide Jeans ($55)";
+                    }
+
+
+                    //get add on selected 
+                    strAddonselected = "";
+                    if (beltCheckBox.Checked)
+                    {
+                        strAddonselected += "belt;";
+                    }
+                    if (chainCheckBox.Checked)
+                    {
+                        strAddonselected += "chain;";
+                    }
+                    if (slingBagCheckBox.Checked)
+                    {
+                        strAddonselected += "sling bag;";
+                    }
+                    if (strAddonselected == "")
+                    {
+                        strAddonselected = "Nil"; //No add on in order
+                    }
+
+                    //continue by ferra // add information to list box
+                    listBox1.Items.Add(strItemselected + "\t" +
+                        strAddonselected + "\t" +
+                        qtyString + "\t" +
+                        itemPriceDecimal.ToString("N") + "\t" +
+                        (itemPriceDecimal * qtyInteger).ToString("N"));
+
+
+                    orderCompleteButton.Enabled = true;
+
+                    clearForNextItem();
+
+                    MessageBox.Show("Your item has been added to your cart.", "Item Added");
+
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter quantity!", "Quantity error!");
+                quantityTextBox.Focus();
+            }
+        }
+    }
+
+    private void quantityTextBox_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void orderCompleteButton_Click(object sender, EventArgs e)
+    {
+        if (totalPriceTextBox.Text != "")
+        {
+            //prompt the user whether to add current drink to the order
+
+            string messageString = "The current drink is not added to the order. Do you want to add it?";
+
+            DialogResult = MessageBox.Show(messageString, "Add Order",
+            MessageBoxButton.YesNo, MessageBoxIcon.Question);
+
+            if (userResponseDialogResult == DialogResult.Yes)
+            {
+                addToOrderButton_Clink(sender, e);
+            }
+
+        }
+        //show the amount due for the current order order //ferra
+        string amountDueString = "Amount Due:" + totalOrderDecimal.ToString("c");
+        MessageBox.Show(amountDueString, "Order complete");
+
+        orderInteger++;
+        totalSalesDecimal += totalOrderDecimal;
+
+        //reset the button and the total for the new order
+        summaryReportButton.Enabled = true;
+        orderCompleteButton.Enabled = false;
+        totalOrderDecimal = 0m;
+
+
+
+    }
+
+
+    private void priceTextBox_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void summaryReportButton_Click(object sender, EventArgs e)
+    {
+        string productSoldString = "Product Sold:\t" + drinkInteger.ToString();
+        string ordersString = "Number of Orders:\t" + orderInteger.ToString();
+        string totalSalesString = "Total Sales:\t" + totalSalesDecimal.ToString("C");
+
+        MessageBox.Show(ProductSoldString + "\n\n" +
+            ordersString + "\n\n"
+            + totalSalesString, "Verdant Sales Summary",); ;
+
+        this.Hide();
+        TotalOrder f2 = new TotalOrder();
+        f2.ShowDialog();
+    }
+
+    private void totalPriceTextBox_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+
+        {
+
+            //remove the selected item from list box 
+            listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+
+
+        }
+    }
+    //declare a variable and create a new payment form
+    Payment pmtform = new Payment();
+
+    //retrieve the price from the main page and pass it to payment
+    decimal priceDecimal = decimal.Parse(totalPriceTextbox.Text);
+    pmtform.setPrice(priceDecimal);
+
+        //hide the current form
+        this.Hide();
+
+        //show the payment form in modal mode
+        pmtform
+
+
+        private void MainPage2_Load(object sender, EventArgs e)
+    {
+
+    }
+    
+}
+    
+    
+
